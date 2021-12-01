@@ -1,0 +1,47 @@
+version: 2.1
+orbs:
+  python: circleci/python@1.2
+
+workflows:
+  build-app-with-test:
+    jobs:
+      - build-and-test
+      - deploy
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "Pipefile"}}
+      - run:
+          name: Install dependencies
+          command: |
+            pipenv --three
+            pipenv install
+
+      - save_cache:
+          key:
+            deps1-{{ .Branch }}-{{ checksum "Pipefile"}} 
+          paths:
+            - "venv"
+      - run:
+          name: Run tests
+          command: pipenv run pytest
+  deploy:
+    
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - d9:a3:6c:13:33:15:f5:85:32:3a:18:2f:cd:60:27:29
+      - checkout
+      - python/install-packages:
+          pkg-manager: pipenv
+      - run:
+          name: Deploy Over SSH
+          command: |
+            ssh-keyscan -H ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+            ssh $SSH_USER@$SSH_HOST "cd bookapi-swaggdoc; git pull";
