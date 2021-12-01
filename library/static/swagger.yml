@@ -17,9 +17,6 @@ servers:
           - https
         default: https
 
-
-
-
 paths:
   /signup:
     post:
@@ -98,7 +95,7 @@ paths:
       
       responses:
         200:
-          description: all books retturned
+          description: all books returned
         500:
           description: InternalServerError
 
@@ -106,7 +103,7 @@ paths:
     get:
       tags:
         - "Books"
-      summary: get book byid
+      summary: get book by id
       description: retrieves a single book entry using id
       parameters:
         - name: id
@@ -126,8 +123,6 @@ paths:
           description: Success
         500:
           description: oops! something is wrong with the server
-      
-
 tags:
   - name: User
     description: labels for users
