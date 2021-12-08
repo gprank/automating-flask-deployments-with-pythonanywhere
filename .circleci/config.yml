@@ -34,9 +34,9 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - 0e:d6:93:fd:03:f0:54:b5:6b:57:8e:44:cd:0d:b3:99
+      # - add_ssh_keys:
+      #     fingerprints:
+      #       - 0e:d6:93:fd:03:f0:54:b5:6b:57:8e:44:cd:0d:b3:99
       - checkout
       - python/install-packages:
           pkg-manager: pipenv
