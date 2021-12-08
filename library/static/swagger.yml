@@ -106,8 +106,8 @@ paths:
       summary: get book by id
       description: retrieves a single book entry using id
       parameters:
-        - name: id
-          in: query
+        - in: path
+          name: id
           description: id of the book
           required: true
           schema:

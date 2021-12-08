@@ -22,6 +22,7 @@ Swagger documentation for a flask API application
 > Deployed documentation version: https://waweru.pythonanywhere.com/api-docs/
 
 ### Local setup
+- run `pipenv shell` to shart virtualenv
 - run: `python run.py` serving point of the API
 - app running on `http://127.0.0.1:5000/`
 - Documentation being served on `/api-docs` endpoint
