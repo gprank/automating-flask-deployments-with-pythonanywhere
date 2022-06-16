@@ -24,7 +24,6 @@ jobs:
           name: Run tests
           command: pipenv run pytest
   deploy:
-    
     docker:
       - image: cimg/python:3.9
     steps:
