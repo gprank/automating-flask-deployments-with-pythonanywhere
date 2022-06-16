@@ -16,35 +16,35 @@
 # code to get your own working.
 
 
-HELLO_WORLD = """<html>
-<head>
-    <title>PythonAnywhere hosted web application</title>
-</head>
-<body>
-<h1>Hello, World!</h1>
-<p>
-    This is the default welcome page for a
-    <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>
-    hosted web application.
-</p>
-<p>
-    Find out more about how to configure your own web application
-    by visiting the <a href="https://www.pythonanywhere.com/web_app_setup/">web app setup</a> page
-</p>
-</body>
-</html>"""
+#HELLO_WORLD = """<html>
+#<head>
+#    <title>PythonAnywhere hosted web application</title>
+#</head>
+#<body>
+#<h1>Hello, World!</h1>
+#<p>
+#    This is the default welcome page for a
+#    <a href="https://www.pythonanywhere.com/">PythonAnywhere</a>
+#    hosted web application.
+#</p>
+#<p>
+#    Find out more about how to configure your own web application
+#    by visiting the <a href="https://www.pythonanywhere.com/web_app_setup/">web app setup</a> page
+#</p>
+#</body>
+#</html>"""
 
 
-def application(environ, start_response):
-    if environ.get('PATH_INFO') == '/':
-        status = '200 OK'
-        content = HELLO_WORLD
-    else:
-        status = '404 NOT FOUND'
-        content = 'Page not found.'
-    response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(content)))]
-    start_response(status, response_headers)
-    yield content.encode('utf8')
+#def application(environ, start_response):
+#    if environ.get('PATH_INFO') == '/':
+#        status = '200 OK'
+#        content = HELLO_WORLD
+#    else:
+#        status = '404 NOT FOUND'
+#        content = 'Page not found.'
+#    response_headers = [('Content-Type', 'text/html'), ('Content-Length', str(len(content)))]
+#    start_response(status, response_headers)
+#    yield content.encode('utf8')
 
 
 # Below are templates for Django and Flask.  You should update the file
@@ -96,18 +96,26 @@ def application(environ, start_response):
 # may need to rename it during the import:
 #
 #
-#import sys
-#
-## The "/home/ofdacone" below specifies your home
-## directory -- the rest should be the directory you uploaded your Flask
-## code to underneath the home directory.  So if you just ran
-## "git clone git@github.com/myusername/myproject.git"
-## ...or uploaded files to the directory "myproject", then you should
-## specify "/home/ofdacone/myproject"
+import sys
+
+# add your project directory to the sys.path
+project_home = '/home/ofdacone/automating-flask-deployments-with-pythonanywhere'
+if project_home not in sys.path:
+    sys.path = [project_home] + sys.path
+
+# import flask app but need to call it "application" for WSGI to work
+from run import app as application
+
+# The "/home/ofdacone" below specifies your home
+# directory -- the rest should be the directory you uploaded your Flask
+# code to underneath the home directory.  So if you just ran
+# "git clone git@github.com/myusername/myproject.git"
+# ...or uploaded files to the directory "myproject", then you should
+# specify "/home/ofdacone/myproject"
 #path = '/home/ofdacone/path/to/flask_app_directory'
 #if path not in sys.path:
 #    sys.path.append(path)
-#
+
 #from main_flask_app_file import app as application  # noqa
 #
 # NB -- many Flask guides suggest you use a file called run.py; that's
